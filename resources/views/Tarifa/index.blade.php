@@ -8,6 +8,12 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+                <div style="padding:16px">
+                        <div class="flex space-x-2 mb-4">
+                    <x-button class="dt-button">
+                        <a href="{{ route('Tarifa.create') }}">Nuevo</a>
+                    </x-button>
+                        </div>
                     <table id="tarifa" class="display" style="width:100%">
                         <thead>
                             <tr>
@@ -44,7 +50,8 @@
                             </tr>
                         @endforeach
                     </tbody>
-                </table>    
+                    </table>
+                </div>  
             </div>
         </div>
     </div>
