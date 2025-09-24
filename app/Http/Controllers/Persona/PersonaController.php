@@ -13,7 +13,8 @@ class PersonaController extends Controller
      */
     public function index()
     {
-        //
+        $personas = Persona::all(); //los index estan pendientes por crearse, borrar cuando no pls
+        return view('Personas.index',compact('personas')); //Todas las variables ($) son en minuscula
     }
 
     /**

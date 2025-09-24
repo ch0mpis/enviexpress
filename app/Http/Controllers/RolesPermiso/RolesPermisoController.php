@@ -13,7 +13,8 @@ class RolesPermisoController extends Controller
      */
     public function index()
     {
-        //
+        $rolesperm = RolesPermiso::all(); //los index estan pendientes por crearse, borrar cuando no pls
+        return view('RolesPerm.index',compact('rolesperm')); //Todas las variables ($) son en minuscula
     }
 
     /**

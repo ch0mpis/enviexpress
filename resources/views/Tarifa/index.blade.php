@@ -13,6 +13,13 @@
                     <x-button class="dt-button">
                         <a href="{{ route('Tarifa.create') }}">Nuevo</a>
                     </x-button>
+
+                
+
+                    @if (session('ok'))
+                    <p style="color:green">{{ session('ok') }}</p>
+                    @endif
+
                         </div>
                     <table id="tarifa" class="display" style="width:100%">
                         <thead>
@@ -29,26 +36,39 @@
                                 <th>Tiempo Entrega</th>
                                 <th>Vigencia Desde</th>
                                 <th>Vigencia Hasta</th>
-
+                                <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($tarifas as $tar)
                             <tr>
-                            <td>{{ $tar->id }}</td>
-                            <td>{{ $tar->nombre_tarifa }}</td>
-                            <td>{{ $tar->ubicacion_origen }}</td>
-                            <td>{{ $tar->ubicacion_destino }}</td>
-                            <td>{{ $tar->tipo_servicio }}</td>
-                            <td>{{ $tar->peso_minimo_kg }}</td>
-                            <td>{{ $tar->peso_maximo_kg }}</td>
-                            <td>{{ $tar->tarifa_base }}</td>
-                            <td>{{ $tar->tarifa_adicional_kg }}</td>
-                            <td>{{ $tar->tiempo_entrega_horas }}</td>
-                            <td>{{ $tar->vigencia_desde }}</td>
-                            <td>{{ $tar->vigencia_hasta }}</td>
+                                <td>{{ $tar->id_tarifa }}</td>
+                                <td>{{ $tar->nombre_tarifa }}</td>
+                                <td>{{ $tar->origen->ciudad ?? '-' }}</td>
+                                <td>{{ $tar->destino->ciudad ?? '-' }}</td>
+                                <td>{{ $tar->tipo_servicio }}</td>
+                                <td>{{ $tar->peso_minimo_kg }}</td>
+                                <td>{{ $tar->peso_maximo_kg }}</td>
+                                <td>{{ $tar->tarifa_base }}</td>
+                                <td>{{ $tar->tarifa_adicional_kg }}</td>
+                                <td>{{ $tar->tiempo_entrega_horas }}</td>
+                                <td>{{ $tar->vigencia_desde }}</td>
+                                <td>{{ $tar->vigencia_hasta }}</td>
+                                <td>
+                                    <x-button class="dt-button">
+                                        <a href="{{ route('Tarifa.edit', $tar) }}" >Editar</a>
+                                    </x-button>
+
+                                    <form action="{{ route('Tarifa.destroy', $tar) }}" method="POST"
+                                            style="display:inline" onsubmit="return confirm('¿Eliminar?')">
+                                            @csrf @method('DELETE')
+                                            <x-button class="dt-button" type="submit">
+                                                Eliminar
+                                            </x-button>
+                                    </form>
+                                </td>                            
                             </tr>
-                        @endforeach
+                        @endforeach 
                     </tbody>
                     </table>
                 </div>  

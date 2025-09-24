@@ -10,7 +10,8 @@ Route::get('/', function () {
 
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])
 ->resource('Tarifa',TarifaController::class)
-->names('Tarifa');
+->names('Tarifa')
+->parameters(['Tarifa' => 'tarifa']);
 
 
 Route::middleware([

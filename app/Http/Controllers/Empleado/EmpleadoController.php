@@ -13,7 +13,8 @@ class EmpleadoController extends Controller
      */
     public function index()
     {
-        //
+        $empleados = Empleado::all(); //los index estan pendientes por crearse, borrar cuando no pls
+        return view('Empleados.index',compact('empleados')); //Todas las variables ($) son en minuscula
     }
 
     /**

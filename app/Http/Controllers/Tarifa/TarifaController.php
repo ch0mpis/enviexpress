@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Tarifa;
 use App\Http\Controllers\Controller;
 use App\Models\Tarifa;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreTarifaRequest;
+use App\Http\Requests\UpdateTarifaRequest;
+use Illuminate\Support\Facades\Log;
+use App\Models\Ubicacion;
 
 class TarifaController extends Controller
 {
@@ -13,8 +17,10 @@ class TarifaController extends Controller
      */
     public function index()
     {
-        $tarifas = Tarifa::all();
-        return view('Tarifa.index',compact('tarifas'));
+    //$tarifas = Tarifa::all();
+    $tarifas = Tarifa::with(['ubicacion'])
+    ->get();
+    return view('Tarifa.index', compact('tarifas'));
     }
 
     /**
@@ -22,21 +28,25 @@ class TarifaController extends Controller
      */
     public function create()
     {
-        return view('Tarifa.create');
+        return view('Tarifa.create', [
+            'ubicaciones' => Ubicacion::OrderBy('ciudad')->get(['id_ubicacion','ciudad']),
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreTarifaRequest $request)
     {
-        //
+        Tarifa::create($request->validated());
+        return redirect()->route('Tarifa.index')
+            ->with('ok', 'La tarifa fue creada correctamente.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Tarifa $tarifa)
+    public function show(Tarifa $tarifas)
     {
         //
     }
@@ -46,15 +56,22 @@ class TarifaController extends Controller
      */
     public function edit(Tarifa $tarifa)
     {
-        //
+        //Log::info(gettype($tarifas));
+        //Log::info(print_r($tarifas));
+
+        return view('Tarifa.edit', [
+            'tarifa' => $tarifa,
+            'ubicaciones' => Ubicacion::OrderBy('ciudad')->get(['id_ubicacion','ciudad']),
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Tarifa $tarifa)
+    public function update(UpdateTarifaRequest $request, Tarifa $tarifa)
     {
-        //
+        $tarifa->update($request->validated());
+        return redirect()->route('Tarifa.index')->with('ok', 'La tarifa fue actualizada correctamente.');
     }
 
     /**
@@ -62,6 +79,12 @@ class TarifaController extends Controller
      */
     public function destroy(Tarifa $tarifa)
     {
-        //
+        try {
+            $tarifa->delete();
+            return back()->with('ok', 'Tarifa eliminada correctamente.');
+        } catch (\Throwable $e) {
+            return back()->withErrors('No se puede eliminar: la tarifa tiene registros relacionados.');
+        }
     }
 }
+

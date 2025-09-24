@@ -13,7 +13,8 @@ class SeguimientoController extends Controller
      */
     public function index()
     {
-        //
+        $seguimiento = Seguimiento::all(); //los index estan pendientes por crearse, borrar cuando no pls
+        return view('Seguimiento.index',compact('seguimiento')); //Todas las variables ($) son en minuscula
     }
 
     /**

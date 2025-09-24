@@ -13,7 +13,8 @@ class GuiaController extends Controller
      */
     public function index()
     {
-        //
+        $guia = Guia::all(); //los index estan pendientes por crearse, borrar cuando no pls
+        return view('Guia.index',compact('guia')); //Todas las variables ($) son en minuscula
     }
 
     /**
