@@ -6,7 +6,7 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <x-application-mark class="block h-9 w-auto" />
+                        <img src="{{ asset('images/logonav.jpg') }}" alt="Logo" class="h-9 w-9">
                     </a>
                 </div>
 
@@ -18,8 +18,14 @@
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link href="{{ route('Tarifa.index') }}" :active="request()->routeIs('Tarifa.*')">
+                    <x-nav-link href="{{ route('tarifas.index') }}" :active="request()->routeIs('tarifas.*')">
                         {{ __('Tarifas') }}
+                    </x-nav-link>
+                </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link href="{{ route('guias.index') }}" :active="request()->routeIs('guias.*')">
+                        {{ __('Guías') }}
                     </x-nav-link>
                 </div>
     </div>

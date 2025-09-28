@@ -84,4 +84,14 @@ class Guia extends Model
 	{
 		return $this->hasMany(Seguimiento::class, 'id_guia');
 	}
+
+	public function remitente()
+    {
+        return $this->belongsTo(Persona::class, 'id_remitente');
+    }
+
+    public function destinatario()
+    {
+        return $this->belongsTo(Persona::class, 'id_destinatario');
+    }
 }

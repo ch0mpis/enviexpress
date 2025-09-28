@@ -2,17 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Tarifa\TarifaController;
+use App\Http\Controllers\Guia\GuiaController;
 
 
 Route::get('/', function () {
     return view('welcome');
 });
-
-Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])
-->resource('Tarifa',TarifaController::class)
-->names('Tarifa')
-->parameters(['Tarifa' => 'tarifa']);
-
 
 Route::middleware([
     'auth:sanctum',
@@ -23,3 +18,13 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+
+    Route::resource('guias', GuiaController::class)
+        ->names('guias')
+        ->parameters(['guias' => 'guia']);
+
+    Route::resource('tarifas', TarifaController::class)
+        ->names('tarifas')
+        ->parameters(['tarifas' => 'tarifa']);
+

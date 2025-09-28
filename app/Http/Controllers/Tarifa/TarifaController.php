@@ -20,7 +20,7 @@ class TarifaController extends Controller
     //$tarifas = Tarifa::all();
     $tarifas = Tarifa::with(['ubicacion'])
     ->get();
-    return view('Tarifa.index', compact('tarifas'));
+        return view('tarifa.index', compact('tarifas'));
     }
 
     /**
@@ -28,7 +28,7 @@ class TarifaController extends Controller
      */
     public function create()
     {
-        return view('Tarifa.create', [
+        return view('tarifa.create', [
             'ubicaciones' => Ubicacion::OrderBy('ciudad')->get(['id_ubicacion','ciudad']),
         ]);
     }
@@ -39,7 +39,7 @@ class TarifaController extends Controller
     public function store(StoreTarifaRequest $request)
     {
         Tarifa::create($request->validated());
-        return redirect()->route('Tarifa.index')
+        return redirect()->route('tarifas.index')
             ->with('ok', 'La tarifa fue creada correctamente.');
     }
 
@@ -59,7 +59,7 @@ class TarifaController extends Controller
         //Log::info(gettype($tarifas));
         //Log::info(print_r($tarifas));
 
-        return view('Tarifa.edit', [
+        return view('tarifa.edit', [
             'tarifa' => $tarifa,
             'ubicaciones' => Ubicacion::OrderBy('ciudad')->get(['id_ubicacion','ciudad']),
         ]);
@@ -71,7 +71,7 @@ class TarifaController extends Controller
     public function update(UpdateTarifaRequest $request, Tarifa $tarifa)
     {
         $tarifa->update($request->validated());
-        return redirect()->route('Tarifa.index')->with('ok', 'La tarifa fue actualizada correctamente.');
+        return redirect()->route('tarifas.index')->with('ok', 'La tarifa fue actualizada correctamente.');
     }
 
     /**

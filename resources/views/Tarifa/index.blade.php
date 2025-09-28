@@ -11,7 +11,7 @@
                 <div style="padding:16px">
                         <div class="flex space-x-2 mb-4">
                     <x-button class="dt-button">
-                        <a href="{{ route('Tarifa.create') }}">Nuevo</a>
+                        <a href="{{ route('tarifas.create') }}">Nuevo</a>
                     </x-button>
 
                 
@@ -24,7 +24,6 @@
                     <table id="tarifa" class="display" style="width:100%">
                         <thead>
                             <tr>
-                                <th>ID</th>
                                 <th>Nombre Tarifa</th>
                                 <th>Ubi Origen</th>
                                 <th>Ubi Destino</th>
@@ -42,7 +41,6 @@
                         <tbody>
                             @foreach($tarifas as $tar)
                             <tr>
-                                <td>{{ $tar->id_tarifa }}</td>
                                 <td>{{ $tar->nombre_tarifa }}</td>
                                 <td>{{ $tar->origen->ciudad ?? '-' }}</td>
                                 <td>{{ $tar->destino->ciudad ?? '-' }}</td>
@@ -56,10 +54,10 @@
                                 <td>{{ $tar->vigencia_hasta }}</td>
                                 <td>
                                     <x-button class="dt-button">
-                                        <a href="{{ route('Tarifa.edit', $tar) }}" >Editar</a>
+                                        <a href="{{ route('tarifas.edit', $tar) }}" >Editar</a>
                                     </x-button>
 
-                                    <form action="{{ route('Tarifa.destroy', $tar) }}" method="POST"
+                                    <form action="{{ route('tarifas.destroy', $tar) }}" method="POST"
                                             style="display:inline" onsubmit="return confirm('¿Eliminar?')">
                                             @csrf @method('DELETE')
                                             <x-button class="dt-button" type="submit">
